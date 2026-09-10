@@ -1,0 +1,14 @@
+services:
+  generator:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      KURSOVE_API_TOKEN: "${KURSOVE_API_TOKEN:?Set KURSOVE_API_TOKEN in .env}"
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,noexec,nosuid
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    restart: unless-stopped

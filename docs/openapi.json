@@ -1,0 +1,436 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Kursove PDF Generator",
+    "version": "1.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080"
+    }
+  ],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "summary": "Service health",
+        "responses": {
+          "200": {
+            "description": "Ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "version"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/courses/pdf": {
+      "post": {
+        "summary": "Generate a course PDF",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CoursePdfRequest"
+              },
+              "example": {
+                "id": "123-София",
+                "name": "Мебелно - Враца",
+                "date": "2026-09-10",
+                "created_by": "Примерен диспечер",
+                "note": "Първи курс, изпълнение до 10:00; задължително прозвъняване на всички получатели поне час преди доставка",
+                "orders": [
+                  {
+                    "client": "Примерна мебелна къща ООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664689",
+                    "invoice": "6000664689",
+                    "recipient": "Примерен получател 01",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "София, ул. Примерна 10, склад 1",
+                    "product_count": 5,
+                    "client_id": "customer-001"
+                  },
+                  {
+                    "client": "Примерна мебелна къща ООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664690",
+                    "invoice": "6000664690",
+                    "recipient": "Примерен получател 02",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "София, ул. Примерна 12, склад 2",
+                    "product_count": 12,
+                    "client_id": "customer-001"
+                  },
+                  {
+                    "client": "Примерна мебелна къща ООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664691",
+                    "invoice": "6000664691",
+                    "recipient": "Примерен получател 03",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "София, бул. Примерен 85, вход Б",
+                    "product_count": 8,
+                    "client_id": "customer-001"
+                  },
+                  {
+                    "client": "Примерен интериор ЕООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664692",
+                    "invoice": "6000664692",
+                    "recipient": "Примерен получател 04",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "Ботевград, Примерна индустриална зона, сграда 3",
+                    "product_count": 3,
+                    "client_id": "customer-002"
+                  },
+                  {
+                    "client": "Примерен интериор ЕООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664693",
+                    "invoice": "6000664693",
+                    "recipient": "Примерен получател 05",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "Мездра, ул. Примерна 7, партер",
+                    "product_count": 16,
+                    "client_id": "customer-002"
+                  },
+                  {
+                    "client": "Примерен клиент ООД",
+                    "company_phone": "08XX XXX XXX",
+                    "warehouse_order": "5500664694",
+                    "invoice": "6000664694",
+                    "recipient": "Примерен получател 06",
+                    "recipient_phone": "08XX XXX XXX",
+                    "address": "Враца, бул. Примерен 24, складова база",
+                    "product_count": 7,
+                    "client_id": "customer-003"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A4 PDF; input order preserved. No storage or caching.",
+            "headers": {
+              "Content-Disposition": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed JSON, duplicate key or non-finite number.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "invalid_json",
+                    "message": "Malformed JSON, duplicate key or non-finite number."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Valid Bearer token required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unauthorized",
+                    "message": "Valid Bearer token required."
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "payload_too_large",
+                    "message": "Request Entity Too Large"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Use application/json.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "unsupported_media_type",
+                    "message": "Use application/json."
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid course data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "validation_error",
+                    "message": "Invalid course data.",
+                    "details": [
+                      {
+                        "field": "/date",
+                        "reason": "Invalid date; use YYYY-MM-DD."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "PDF generation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": {
+                    "code": "generation_failed",
+                    "message": "PDF generation failed."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "CoursePdfRequest": {
+        "title": "CoursePdfRequest",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "date",
+          "created_by",
+          "orders"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "\\S"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240,
+            "pattern": "\\S"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "created_by": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240,
+            "pattern": "\\S"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 10000
+          },
+          "orders": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "client",
+                "warehouse_order",
+                "invoice",
+                "address",
+                "product_count"
+              ],
+              "properties": {
+                "client": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "pattern": "\\S"
+                },
+                "company_phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 80
+                },
+                "warehouse_order": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "\\S"
+                },
+                "invoice": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "\\S"
+                },
+                "recipient": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 240
+                },
+                "recipient_phone": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 80
+                },
+                "address": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 10000,
+                  "pattern": "\\S"
+                },
+                "product_count": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000000
+                },
+                "client_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120,
+                  "pattern": "\\S",
+                  "description": "Optional WMS customer ID. Only adjacent orders with matching ID and exact client name are grouped; absent ID falls back to exact name."
+                }
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "field",
+                    "reason"
+                  ],
+                  "properties": {
+                    "field": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

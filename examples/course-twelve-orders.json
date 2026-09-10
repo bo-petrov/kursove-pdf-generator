@@ -1,0 +1,141 @@
+{
+  "id": "124-Дълъг",
+  "name": "Примерен курс с продължение",
+  "date": "2026-09-10",
+  "created_by": "Примерен диспечер",
+  "note": "Първи курс, изпълнение до 10:00; задължително прозвъняване на всички получатели поне час преди доставка",
+  "orders": [
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664700",
+      "invoice": "6000664700",
+      "recipient": "Примерен получател 01",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 1, склад 1",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664701",
+      "invoice": "6000664701",
+      "recipient": "Примерен получател 02",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 2, склад 2",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664702",
+      "invoice": "6000664702",
+      "recipient": "Примерен получател 03",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 3, склад 3",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664703",
+      "invoice": "6000664703",
+      "recipient": "Примерен получател 04",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 4, склад 4",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664704",
+      "invoice": "6000664704",
+      "recipient": "Примерен получател 05",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 5, склад 5",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664705",
+      "invoice": "6000664705",
+      "recipient": "Примерен получател 06",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 6, склад 6",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664706",
+      "invoice": "6000664706",
+      "recipient": "Примерен получател 07",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 7, склад 7",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664707",
+      "invoice": "6000664707",
+      "recipient": "Примерен получател 08",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 8, склад 8",
+      "product_count": 5,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерна мебелна къща ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664708",
+      "invoice": "6000664708",
+      "recipient": "Примерен получател 09",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 9, склад 9",
+      "product_count": 3,
+      "client_id": "customer-001"
+    },
+    {
+      "client": "Примерен интериор ЕООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664709",
+      "invoice": "6000664709",
+      "recipient": "Примерен получател 10",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 10, склад 10",
+      "product_count": 3,
+      "client_id": "customer-002"
+    },
+    {
+      "client": "Примерен интериор ЕООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664710",
+      "invoice": "6000664710",
+      "recipient": "Примерен получател 11",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 11, склад 11",
+      "product_count": 3,
+      "client_id": "customer-002"
+    },
+    {
+      "client": "Примерен клиент ООД",
+      "company_phone": "08XX XXX XXX",
+      "warehouse_order": "5500664711",
+      "invoice": "6000664711",
+      "recipient": "Примерен получател 12",
+      "recipient_phone": "08XX XXX XXX",
+      "address": "Примерен град, ул. Примерна 12, склад 12",
+      "product_count": 7,
+      "client_id": "customer-003"
+    }
+  ]
+}

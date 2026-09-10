@@ -1,0 +1,29 @@
+name: Check generator
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      KURSOVE_API_TOKEN: ci-verification-token
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.lock && pip install --no-deps .
+      - run: pytest
+      - name: Build the documented Compose service
+        run: docker compose -p kursove-ci build
+      - name: Start with the documented runtime settings
+        run: docker compose -p kursove-ci up -d --wait --wait-timeout 90
+      - name: Verify real HTTP requests to the container
+        run: python tools/smoke_http.py http://127.0.0.1:8080 "$KURSOVE_API_TOKEN"
+      - name: Container logs on failure
+        if: failure()
+        run: docker compose -p kursove-ci logs --no-color
+      - name: Stop the test service
+        if: always()
+        run: docker compose -p kursove-ci down --remove-orphans

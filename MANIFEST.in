@@ -1,0 +1,7 @@
+include START_HERE.md CHANGELOG.md README.md THIRD_PARTY_NOTICES.md Dockerfile compose.yaml .dockerignore .env.example requirements.lock requirements-dev.lock
+recursive-include docs *.md *.json
+recursive-include examples *.json *.md *.pdf
+recursive-include tools *.py
+recursive-include tests *.py
+recursive-include .github *.yml
+recursive-include src/kursove_pdf/fonts *.ttf *.txt
