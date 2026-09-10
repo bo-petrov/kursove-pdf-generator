@@ -83,5 +83,6 @@ python -m build
 ```
 
 Последната HTTP проверка изисква работеща услуга. GitHub workflow проверява
-тестовете, Docker build и реална заявка към контейнера след публикуване на repo-то.
-Документацията не означава, че този workflow вече е изпълнен.
+тестовете, Docker Compose build/start и реални заявки към контейнера.
+[Първата CI проверка е успешна](https://github.com/bo-petrov/kursove-pdf-generator/actions/runs/34474425978);
+подробности и граници: [VERIFICATION.md](docs/VERIFICATION.md).
